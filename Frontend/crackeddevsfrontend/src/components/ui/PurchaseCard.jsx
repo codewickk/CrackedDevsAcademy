@@ -13,7 +13,7 @@ export const PurchaseCard = ({ isOpen, onClose, courseData }) => {
 
     try {
       const response = await axios.post(
-        `{API_URL}/api/v1/student/purchaseCourse`,
+        `${API_URL}/api/v1/student/purchaseCourse`,
         {
           courseId: courseData._id,
           educatorId: courseData.educatorId, 
