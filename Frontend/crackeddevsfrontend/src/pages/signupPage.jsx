@@ -10,7 +10,7 @@ import {
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
-
+const API_URL = import.meta.env.VITE_APP_API_BACKEND;
 export function SignupFormDemo({theme , toggleTheme}) {
   const navigate = useNavigate()
   const [role , setRole] = useState("student")
@@ -36,7 +36,7 @@ const handlePasswordChange = (event) => {
 }
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted");
+    // console.log("Form submitted");
   };
   const handleSignUp = () => {
     const signupData = {
@@ -47,17 +47,17 @@ const handlePasswordChange = (event) => {
     };
   
     const endpoint = role === "student" 
-      ? "http://localhost:3000/api/v1/student/signup"
-      : "http://localhost:3000/api/v1/educator/signup";
+      ? `${API_URL}/api/v1/student/signup`
+      : `${API_URL}/api/v1/educator/signup`;
   
     axios.post(endpoint, signupData)
       .then(response => {
-        console.log("Signup successful", response.data);
+        // console.log("Signup successful", response.data);
         localStorage.setItem('token',response.data.token)
         navigate(role === "student" ? "/StudentProfilePage" : "/EducatorProfilePage");
       })
       .catch(error => {
-        console.error("Signup error:", error.response ? error.response.data : error.message);
+        // console.error("Signup error:", error.response ? error.response.data : error.message);
         
       });
   };

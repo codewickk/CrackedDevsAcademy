@@ -3,7 +3,7 @@ import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
 import { cn } from "../lib/utils";
 import axios from "axios";
-
+const API_URL = import.meta.env.VITE_APP_API_BACKEND;
 export default function CourseUploadPage({ theme, toggleTheme }) {
   const [category, setCategory] = useState("");
   const [title, setTitle] = useState("");
@@ -49,7 +49,7 @@ export default function CourseUploadPage({ theme, toggleTheme }) {
 
     axios
       .post(
-        "http://localhost:3000/api/v1/educator/uploadcourse",
+        `${API_URL}/api/v1/educator/uploadcourse`,
         formData,
         {
           headers: {
@@ -59,7 +59,7 @@ export default function CourseUploadPage({ theme, toggleTheme }) {
         }
       )
       .then((response) => {
-        console.log("Course Uploaded", response.data);
+        // console.log("Course Uploaded", response.data);
         alert("Course uploaded successfully!");
       })
       .catch((error) => {

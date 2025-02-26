@@ -5,7 +5,7 @@ import StudentAppbar from "../components/ui/studentAppbar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { PurchasedCourses } from "../components/ui/purchasedCourse";
-
+const API_URL = import.meta.env.VITE_APP_API_BACKEND;
 export default function StudentProfilePage() {
   const [name, setName] = useState("");
   const [error, setError] = useState(null);
@@ -21,7 +21,7 @@ export default function StudentProfilePage() {
           return;
         }
 
-        const response = await axios.get('http://localhost:3000/api/v1/student/getname', {
+        const response = await axios.get(`${API_URL}/api/v1/student/getname`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -29,7 +29,7 @@ export default function StudentProfilePage() {
 
         setName(response.data.name);
       } catch (error) {
-        console.error("Error fetching name:", error.response ? error.response.data : error.message);
+        // console.error("Error fetching name:", error.response ? error.response.data : error.message);
         
         if (error.response?.status === 401) {
           localStorage.removeItem('token');

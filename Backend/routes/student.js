@@ -177,11 +177,11 @@ router.post('/purchaseCourse', authenticator, async (req, res) => {
 router.get("/purchasedCourses", authenticator, async (req, res) => {
     const studentId = req.userId;
     try {
-      // Use populate to get course details
+      
       const purchases = await Purchase.find({ studentId })
         .populate({
           path: 'courseId',
-          select: 'title description thumbnail category ' // Select the fields you want
+          select: 'title description thumbnail category ' 
         });
       
       if (!purchases || purchases.length === 0) {
@@ -191,7 +191,7 @@ router.get("/purchasedCourses", authenticator, async (req, res) => {
         });
       }
   
-      // Map the purchases to include course details
+      
       const purchasedCourses = purchases.map(purchase => ({
         purchaseId: purchase._id,
         courseId: purchase.courseId._id,
@@ -243,11 +243,11 @@ router.get("/isCoursePurchased", authenticator, async (req, res) => {
         const s3Url = course.videoURL;
         const videoPath = s3Url.split('.com')[1];
         
-        // Fix: Remove any protocol from CLOUDFRONT_DOMAIN if it exists
+        
         const domain = process.env.CLOUDFRONT_DOMAIN.replace(/^https?:\/\//, '');
         const cloudFrontUrl = `https://${domain}${videoPath}`;
         
-        // Add debugging logs
+       
         console.log("Original S3 URL:", s3Url);
         console.log("Video path:", videoPath);
         console.log("Domain:", domain);
@@ -262,7 +262,7 @@ router.get("/isCoursePurchased", authenticator, async (req, res) => {
 
         res.json({
             success: true,
-            videoUrl: signedUrl  // Make sure the property name matches what the frontend expects
+            videoUrl: signedUrl  
         });
     } catch (error) {
         console.error("Error checking course purchase:", error);

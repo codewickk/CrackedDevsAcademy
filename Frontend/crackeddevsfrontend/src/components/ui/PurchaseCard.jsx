@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+const API_URL = import.meta.env.VITE_APP_API_BACKEND
 export const PurchaseCard = ({ isOpen, onClose, courseData }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -12,7 +13,7 @@ export const PurchaseCard = ({ isOpen, onClose, courseData }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/student/purchaseCourse",
+        `{API_URL}/api/v1/student/purchaseCourse`,
         {
           courseId: courseData._id,
           educatorId: courseData.educatorId, 
@@ -28,7 +29,7 @@ export const PurchaseCard = ({ isOpen, onClose, courseData }) => {
       console.log("Purchase successful:", response.data);
       onClose();
     } catch (error) {
-      console.error("Purchase failed:", error.response?.data || error.message);
+      // console.error("Purchase failed:", error.response?.data || error.message);
       navigate('/signup')
     } finally {
       setIsLoading(false);

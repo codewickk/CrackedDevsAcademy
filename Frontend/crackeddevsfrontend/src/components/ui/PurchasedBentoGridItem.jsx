@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ReactPlayer from 'react-player';
+const API_URL = import.meta.env.VITE_APP_API_BACKEND;
 const cn = (...classes) => classes.filter(Boolean).join(" ");
 export const PurchasedBentoGridItem = ({
   className,
@@ -25,9 +26,9 @@ export const PurchasedBentoGridItem = ({
     try{
       setLoading(true);
       setError(null);
-      console.log(selectedCourseId);
+      // console.log(selectedCourseId);
       const token = localStorage.getItem('token');
-      const response = await axios.get("http://localhost:3000/api/v1/student/isCoursePurchased", {
+      const response = await axios.get(`${API_URL}/api/v1/student/isCoursePurchased`, {
         params: { courseId: selectedCourseId },  // Correct way to pass query params
         headers: {
           Authorization: `Bearer ${token}`,
@@ -40,7 +41,7 @@ export const PurchasedBentoGridItem = ({
       else{
         setError(response.data.message);
       }
-      console.log(response.data);
+      // console.log(response.data);
     }
     catch(error){
       setError(error.response?.data?.message || "failed to access video")

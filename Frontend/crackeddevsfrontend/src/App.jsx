@@ -5,6 +5,7 @@ import { SigninFormDemo } from "./pages/signinPage";
 import Landingpage from "./pages/LandingPage";
 import EducatorProfilePage from "./pages/EducatorProfilePage";
 import StudentProfilePage from "./pages/StudentProfilePage";
+import FeatureUnderConstruction from "./pages/featureUnderCons";
 
 function App(){
   const [theme , settheme] = useState("dark");
@@ -23,6 +24,7 @@ function App(){
       <Route path="/signin" element= {<SigninFormDemo theme={theme} toggleTheme={toggleTheme} />}/>
       <Route path="/EducatorProfilePage" element= {<EducatorProfilePage theme={theme} toggleTheme={toggleTheme} />}/>
       <Route path="/StudentProfilePage" element={<StudentProfilePage theme={theme} toggleTheme={toggleTheme} />} />
+      <Route path="/FeatureUnderConstruction" element={<FeatureUnderConstruction/>}/>
     </Routes>
     </BrowserRouter>
   )

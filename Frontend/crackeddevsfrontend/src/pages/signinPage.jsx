@@ -10,12 +10,14 @@ export function SigninFormDemo({ theme, toggleTheme }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-
+  const API_URL = import.meta.env.VITE_APP_API_BACKEND;
   const handleRoleChange = (event) => {
     setRole(event.target.value);
   };
-
   const navigate = useNavigate();
+  const handleHomeButton = () => {
+    navigate("/");
+  };
 
   const handleSignIn = async () => {
     setError(null);
@@ -27,8 +29,8 @@ export function SigninFormDemo({ theme, toggleTheme }) {
 
     const endpoint =
       role === "student"
-        ? "http://localhost:3000/api/v1/student/signin"
-        : "http://localhost:3000/api/v1/educator/signin";
+        ? `${API_URL}/api/v1/student/signin`
+        : `${API_URL}/api/v1/educator/signin`;
 
     const loginData = {
       email,
@@ -38,17 +40,21 @@ export function SigninFormDemo({ theme, toggleTheme }) {
     try {
       const response = await axios.post(endpoint, loginData);
       const token = response.data.token;
-      
-     
-      localStorage.setItem('token', token);
-    
-      navigate(role === "student" ? "/StudentProfilePage" : "/EducatorProfilePage");
+
+      localStorage.setItem("token", token);
+
+      navigate(
+        role === "student" ? "/StudentProfilePage" : "/EducatorProfilePage"
+      );
     } catch (error) {
-      console.error("Login error", error.response ? error.response.data : error.message);
-      
+      console.error(
+        "Login error",
+        // error.response ? error.response.data : error.message
+      );
+
       setError(
-        error.response?.data?.msg || 
-        "An error occurred during sign-in. Please try again."
+        error.response?.data?.msg ||
+          "An error occurred during sign-in. Please try again."
       );
     }
   };
@@ -67,13 +73,9 @@ export function SigninFormDemo({ theme, toggleTheme }) {
       <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
         Sign in to your account
       </p>
-      
-      {error && (
-        <div className="text-red-500 mt-4 text-sm">
-          {error}
-        </div>
-      )}
-      
+
+      {error && <div className="text-red-500 mt-4 text-sm">{error}</div>}
+
       <form className="my-8" onSubmit={(e) => e.preventDefault()}>
         <div className="mb-4">
           <label className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
@@ -146,7 +148,15 @@ export function SigninFormDemo({ theme, toggleTheme }) {
           Sign in &rarr;
           <BottomGradient />
         </button>
-
+        <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
+          {" "}
+          <a
+            href="/"
+            className="text-blue-600 hover:text-blue-800 hover:underline"
+          >
+            Home
+          </a>
+        </p>
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
       </form>
     </div>

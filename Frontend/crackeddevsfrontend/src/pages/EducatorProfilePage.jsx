@@ -3,8 +3,8 @@ import UserAppbar from "../components/ui/UserAppbar";
 import CourseUploadPage from "./UploadCourse";
 
 function EducatorProfilePage({theme , toggleTheme}) {
-  const [yesUpload, setYesUpload] = useState(false);
-  console.log(yesUpload);
+  const [yesUpload, setYesUpload] = useState(true);
+  // console.log(yesUpload); // Debugging log commented out
 
   return (
     <div className="flex h-screen flex-col">

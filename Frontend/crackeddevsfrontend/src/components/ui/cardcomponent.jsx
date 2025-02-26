@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BentoGrid, BentoGridItem } from "../ui/bento-grid";
 import axios from "axios";
-
+const API_URL = import.meta.env.VITE_APP_API_BACKEND;
 export function BentoGridDemo() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true); 
@@ -11,7 +11,7 @@ export function BentoGridDemo() {
       try {
         console.log("Fetching courses...");
         
-        const response = await axios.get("http://localhost:3000/api/v1/courses/getcourses");
+        const response = await axios.get(`${API_URL}/api/v1/courses/getcourses`);
         
         console.log("API Response:", response.data);
         

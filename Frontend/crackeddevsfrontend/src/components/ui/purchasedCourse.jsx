@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios"; 
 import { BentoGrid } from "../ui/bento-grid";
 import { PurchasedBentoGridItem } from "../ui/PurchasedBentoGridItem";
-
+const API_URL = import.meta.env.VITE_APP_API_BACKEND;
 export function PurchasedCourses() {
   const [items, setItems] = useState([]); 
   const [error, setError] = useState(null);
@@ -12,7 +12,7 @@ export function PurchasedCourses() {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        console.log("Token available:", !!token); // Debug token
+        // console.log("Token available:", !!token); 
 
         if (!token) {
           setError('No authentication token found');
@@ -20,14 +20,14 @@ export function PurchasedCourses() {
           return;
         }
   
-        const response = await axios.get("http://localhost:3000/api/v1/student/purchasedCourses", {
+        const response = await axios.get(`${API_URL}/api/v1/student/purchasedCourses`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
   
-        console.log("Raw API response:", response.data); // Debug API response
-        console.log("Courses to render:", response.data.purchased); // Debug courses
+        // console.log("Raw API response:", response.data); 
+        // console.log("Courses to render:", response.data.purchased);
   
         if (response.data.success) {
           setItems(response.data.purchased);
@@ -35,7 +35,7 @@ export function PurchasedCourses() {
           setError(response.data.message);
         }
       } catch (error) {
-        console.error("Fetch error details:", error);
+        // console.error("Fetch error details:", error);
         setError(error.response?.data?.message || 'Error fetching courses');
       } finally {
         setLoading(false);
