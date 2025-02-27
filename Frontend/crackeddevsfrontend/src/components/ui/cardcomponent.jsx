@@ -9,18 +9,18 @@ export function BentoGridDemo() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        console.log("Fetching courses...");
+        // console.log("Fetching courses...");
         
         const response = await axios.get(`${API_URL}/api/v1/courses/getcourses`);
         
-        console.log("API Response:", response.data);
+        // console.log("API Response:", response.data);
         
         if (response.data && response.data.success) {
           setItems(response.data.courses);
-          console.log("Courses loaded:", response.data.courses);
+          // console.log("Courses loaded:", response.data.courses);
         }
       } catch (err) {
-        console.error("Error fetching courses:", err);
+        // console.error("Error fetching courses:", err);
       } finally {
         setLoading(false);
       }
